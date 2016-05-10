@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'com.google.protobuf'
+
+archivesBaseName = 'grpc-sample'
+group = 'io.grpc'
+version = '1.0.1-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.4'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.grpc:grpc-all:0.14.0'
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/proto'
+        }
+        java {
+            // include self written and generated code
+            srcDirs 'src/main/java', 'src/generated/main/java'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        // The version of protoc must match protobuf-java. If you don't depend on
+        // protobuf-java directly, you will be transitively depending on the
+        // protobuf-java version that grpc depends on.
+        artifact = "com.google.protobuf:protoc:3.0.0-beta-2"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:0.14.0'
+        }
+    }
+
+    generateProtoTasks.generatedFilesBaseDir = "${projectDir}/src/generated"
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+clean {
+    delete "${projectDir}/src/generated"
+}
+
+// Let intellij projects refer to generated code
+idea {
+    module {
+        sourceDirs += file("${projectDir}/src/generated/main/java");
+        sourceDirs += file("${projectDir}/src/generated/main/grpc");
+    }
+}
