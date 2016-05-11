@@ -4,11 +4,11 @@ This project was created based on [https://github.com/grpc/grpc-java/tree/master
 
 You can use it as a template project when starting a new project.
 
+Before importing into your IDE, please build the project from command line first, so that it can generate code from proto files.
+
 To build, please run the command below:
 
 	gradle clean build
-
-After build, the proto Java classes will be generated under `src/generated` folder.
 
 If you see issues like this:
 
@@ -32,3 +32,5 @@ Total time: 53.602 secs
 ```
 
 You may need to downgrade your Gradle to 2.10.
+
+After build, the proto Java classes will be generated under `src/generated` folder.
