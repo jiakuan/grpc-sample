@@ -34,3 +34,10 @@ Total time: 53.602 secs
 You may need to downgrade your Gradle to 2.10.
 
 After build, the proto Java classes will be generated under `src/generated` folder.
+
+
+## Sponsor
+
+If you would like to contribute this project, please feel free to fork and create pull requests, or contact us at: support (at) wisepersist dot com
+
+This project is sponsored by: [TaskTips](https://task.tips).
